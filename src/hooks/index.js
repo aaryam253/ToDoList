@@ -10,20 +10,20 @@ export const useTasks = (selectedProject) => {
   useEffect(() => {
     let unsubscribe = firebase
       .firestore()
-      .collection("tasks")
-      .where("userID", "==", "cookiez253");
+      .collection('tasks')
+      .where('userID', '==', 'cookiez253');
 
     unsubscribe =
       selectedProject && !collatedTasksExist(selectedProject)
-        ? (unsubscribe = unsubscribe.where("projectID", "==", selectedProject))
-        : selectedProject === "TODAY"
+        ? (unsubscribe = unsubscribe.where('projectId', '==', selectedProject))
+        : selectedProject === 'TODAY'
         ? (unsubscribe = unsubscribe.where(
-            "date",
-            "==",
+            'date',
+            '==',
             moment().format("DD/MM/YYYY")
           ))
-        : selectedProject === "INBOX" || selectedProject === 0
-        ? (unsubscribe = unsubscribe.where("date", "==", ""))
+        : selectedProject === 'INBOX' || selectedProject === 0
+        ? (unsubscribe = unsubscribe.where('date', '==', ''))
         : unsubscribe;
 
     unsubscribe = unsubscribe.onSnapshot((snapshot) => {
@@ -33,10 +33,10 @@ export const useTasks = (selectedProject) => {
       }));
 
       setTasks(
-        selectedProject === "NEXT_7"
+        selectedProject === 'NEXT_7'
           ? newTasks.filter(
               (task) =>
-                moment(task.date, "DD-MM-YYYY").diff(moment(), "days") <= 7 &&
+                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
                 task.archived !== true
             )
           : newTasks.filter((task) => task.archived !== true)
@@ -56,9 +56,9 @@ export const useProjects = () => {
   useEffect(() => {
     firebase
       .firestore()
-      .collection("projects")
-      .where("userID", "==", "cookiez253")
-      .orderBy("projectID")
+      .collection('projects')
+      .where('userID', '==', 'cookiez253')
+      .orderBy('projectId')
       .get()
       .then((snapshot) => {
         const allProjects = snapshot.docs.map((project) => ({

@@ -5,8 +5,8 @@ import { firebase } from "../firebase";
 
 export const IndividualProject = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
-  const {projects, setProjects} = useProjectsValue();
-  const {setSelectedProject} = useSelectedProjectValue();
+  const { projects, setProjects } = useProjectsValue();
+  const { setSelectedProject } = useSelectedProjectValue();
 
   const deleteProject = (docId) => {
     firebase
@@ -16,7 +16,7 @@ export const IndividualProject = ({ project }) => {
       .delete()
       .then(() => {
         setProjects([...projects]);
-        setSelectedProject('INBOX');
+        setSelectedProject("INBOX");
       });
   };
 
@@ -28,6 +28,10 @@ export const IndividualProject = ({ project }) => {
         className="sidebar__project-delete"
         data-testid="delete-project"
         onClick={() => setShowConfirm(!showConfirm)}
+        onKeyDown={() => setShowConfirm(!showConfirm)}
+        tabIndex={0}
+        role="button"
+        aria-label="Confirm deletion of project"
       >
         <FaTrashAlt />
         {showConfirm && (
@@ -36,11 +40,19 @@ export const IndividualProject = ({ project }) => {
               <p>Are you sure you want to delete this project?</p>
               <button
                 type="button"
-                onClick={() => deleteProject(project.docID)}
+                onClick={() => deleteProject(project.docId)}
               >
                 Delete
-                <span onClick={() => setShowConfirm(!showConfirm)}>Cancel</span>
               </button>
+              <span
+                onClick={() => setShowConfirm(!showConfirm)}
+                onKeyDown={() => setShowConfirm(!showConfirm)}
+                tabIndex={0}
+                role="button"
+                aria-label="Cancel adding project, do not delete"
+              >
+                Cancel
+              </span>
             </div>
           </div>
         )}

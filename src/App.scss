@@ -428,7 +428,7 @@ header {
   &__inner {
     @include box-overlay();
     z-index: 99;
-    width: 200px;
+    width: 500px;
     padding: 10px;
     top: 10px;
     right: 0;
@@ -443,7 +443,7 @@ header {
     }
 
     button {
-      @include btn("50px");
+      @include btn('50px');
     }
     span {
       @include cancel();

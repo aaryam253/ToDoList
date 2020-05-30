@@ -13,8 +13,3 @@ export const ProjectsProvider = ({children}) => {
 };
 
 export const useProjectsValue = () => useContext(ProjectsContext);
-
-
-
-
-
