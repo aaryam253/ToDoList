@@ -19,6 +19,7 @@ jspm_packages/
 .env.production.local
 yarn.lock
 package.json
+package-lock.json
 
 # Logs
 logs
